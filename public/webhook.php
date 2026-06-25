@@ -1,5 +1,5 @@
 <?php
-# /var/www/myapp/webhook.php
+# /var/www/myapp/public/webhook.php
 
 $secret = 'ADFE9330_EFDF_33KDFD0_33DFD'; // đặt chuỗi bí mật
 
