@@ -5,7 +5,7 @@ set -e
 
 APP_DIR="/var/www/aodieuhoa.tokyo"
 BRANCH="main"
-LOG_FILE="/var/log/deploy.log"
+LOG_FILE="/var/www/aodieuhoa.tokyo/logs/deploy.log"
 
 echo "[$(date)] Deploy started" >> $LOG_FILE
 
