@@ -436,7 +436,26 @@
         </div>
       </div>
 
-      <div style="margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:rgba(245,96,26,.16);border:1px solid rgba(245,96,26,.4);padding:10px 16px;border-radius:10px;font-size:14px;color:#ffd9c4;font-weight:600;">⚡ Hết hạn sau {{ cdH }}:{{ cdM }}:{{ cdS }} — chỉ còn {{ stockLeft }} áo</div>
+      <!-- Color gallery -->
+      <div style="margin-top:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden;">
+        <div style="padding:12px 16px;background:rgba(255,255,255,.06);font-weight:700;font-size:14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.12);">🎨 Các màu hiện có</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);">
+          <div style="background:#0e2547;padding:10px;">
+            <img src="assets/colors/vang-be.jpg" alt="Vàng be" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;display:block;">
+            <div style="text-align:center;font-size:12px;font-weight:600;color:#d3e2f2;margin-top:7px;">Vàng be</div>
+          </div>
+          <div style="background:#0e2547;padding:10px;">
+            <img src="assets/colors/reu-tron.jpg" alt="Rêu trơn" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;display:block;">
+            <div style="text-align:center;font-size:12px;font-weight:600;color:#d3e2f2;margin-top:7px;">Rêu trơn</div>
+          </div>
+          <div style="background:#0e2547;padding:10px;">
+            <img src="assets/colors/phoi-mau.jpg" alt="Phối màu" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;display:block;">
+            <div style="text-align:center;font-size:12px;font-weight:600;color:#d3e2f2;margin-top:7px;">Phối màu</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;display:inline-flex;align-items:center;gap:10px;background:rgba(245,96,26,.16);border:1px solid rgba(245,96,26,.4);padding:10px 16px;border-radius:10px;font-size:14px;color:#ffd9c4;font-weight:600;">⚡ Hết hạn sau {{ cdH }}:{{ cdM }}:{{ cdS }} — chỉ còn {{ stockLeft }} áo</div>
 
       <!-- TikTok Order Button -->
       <div style="margin-top:16px;">
@@ -474,15 +493,18 @@
         <label style="display:block;font-size:13px;font-weight:700;color:#33465c;margin-bottom:6px;">Địa chỉ nhận hàng</label>
         <input value="{{ form.address }}" onInput="{{ onAddress }}" placeholder="Số nhà, đường, phường/xã, tỉnh/thành" style="width:100%;border:1.5px solid #e2eaf3;border-radius:11px;padding:13px 14px;font-size:15px;margin-bottom:16px;outline:none;">
 
+        <label style="display:block;font-size:13px;font-weight:700;color:#33465c;margin-bottom:6px;">Ghi chú đơn hàng</label>
+        <textarea value="{{ form.note }}" onInput="{{ onNote }}" placeholder="VD: giao buổi sáng, để trước cửa, không gọi điện..." rows="3" style="width:100%;border:1.5px solid #e2eaf3;border-radius:11px;padding:13px 14px;font-size:15px;margin-bottom:16px;outline:none;resize:vertical;"></textarea>
+
         <label style="display:block;font-size:13px;font-weight:700;color:#33465c;margin-bottom:8px;">Chọn size</label>
         <div style="display:flex;gap:8px;margin-bottom:16px;">
           <sc-for list="{{ sizeChips }}" as="c" hint-placeholder-count="4">
-            <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+            <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}<span style="font-size:11px;font-weight:500;opacity:.7;line-height:1;">{{ c.sub }}</span></button>
           </sc-for>
         </div>
 
         <label style="display:block;font-size:13px;font-weight:700;color:#33465c;margin-bottom:8px;">Chọn màu</label>
-        <div style="display:flex;gap:8px;margin-bottom:18px;">
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
           <sc-for list="{{ colorChips }}" as="c" hint-placeholder-count="3">
             <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
           </sc-for>
@@ -509,7 +531,8 @@
           <div style="display:flex;gap:10px;align-items:flex-start;background:#fdecec;border:1px solid #f5c2c2;color:#c0392b;border-radius:11px;padding:12px 14px;font-size:13.5px;line-height:1.5;margin-bottom:14px;"><span style="font-size:16px;line-height:1;">⚠</span><span>{{ orderError }}</span></div>
         </sc-if>
         <button onClick="{{ onSubmit }}" disabled="{{ submitting }}" style="{{ submitBtnStyle }}">{{ submitLabel }}</button>
-        <p style="text-align:center;font-size:12.5px;color:#9aa7b6;margin:12px 0 0;">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+        <p style="text-align:center;font-size:13px;color:#5d6b7e;font-weight:600;margin:10px 0 0;">🚚 Phí ship đồng giá 25k toàn quốc</p>
+        <p style="text-align:center;font-size:12.5px;color:#9aa7b6;margin:6px 0 0;">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
       </div>
       </sc-if>
     </div>
@@ -626,7 +649,7 @@ class Component extends DCLogic {
     size: 'L',
     color: 'Vàng be',
     qty: 1,
-    form: { name: '', phone: '', address: '' },
+    form: { name: '', phone: '', address: '', note: '' },
     submitted: false,
     submitting: false,
     orderError: '',
@@ -683,6 +706,7 @@ class Component extends DCLogic {
     const payload = {
       name, phone, address,
       size: this.state.size, color: this.state.color, qty: this.state.qty,
+      note: (this.state.form.note || '').trim(),
       price: salePrice, total: totalStr,
     };
     try {
@@ -731,10 +755,23 @@ class Component extends DCLogic {
       background: active ? '#fff5ef' : '#fff',
       color: active ? '#f5601a' : '#33465c', cursor: 'pointer',
     });
-    const sizes = ['M', 'L', 'XL', 'XXL'];
-    const sizeChips = sizes.map(s => ({ label: s, style: chip(s === this.state.size), onClick: () => this.setState({ size: s }) }));
-    const colors = ['Vàng be', 'Rêu trơn', 'Phối màu'];
-    const colorChips = colors.map(c => ({ label: c, style: chip(c === this.state.color), onClick: () => this.setState({ color: c }) }));
+    const chipSize = (active) => ({
+      ...chip(active),
+      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+    });
+    const sizes = [
+      { val: 'M',   label: 'M',   sub: '48–56kg'  },
+      { val: 'L',   label: 'L',   sub: '57–64kg'  },
+      { val: 'XL',  label: 'XL',  sub: '65–72kg'  },
+      { val: 'XXL', label: 'XXL', sub: '73–80kg'  },
+    ];
+    const sizeChips = sizes.map(s => ({ label: s.label, sub: s.sub, style: chipSize(s.val === this.state.size), onClick: () => this.setState({ size: s.val }) }));
+    const colors = [
+      { val: 'Vàng be',   img: 'assets/colors/vang-be.jpg'  },
+      { val: 'Rêu trơn',  img: 'assets/colors/reu-tron.jpg' },
+      { val: 'Phối màu',  img: 'assets/colors/phoi-mau.jpg' },
+    ];
+    const colorChips = colors.map(c => ({ label: c.val, style: chip(c.val === this.state.color), onClick: () => this.setState({ color: c.val }) }));
 
     // faqs
     const faqData = [
@@ -798,6 +835,7 @@ class Component extends DCLogic {
       onName: e => this.setState(s => ({ form: { ...s.form, name: e.target.value } })),
       onPhone: e => this.setState(s => ({ form: { ...s.form, phone: e.target.value } })),
       onAddress: e => this.setState(s => ({ form: { ...s.form, address: e.target.value } })),
+      onNote: e => this.setState(s => ({ form: { ...s.form, note: e.target.value } })),
       inc: () => this.setState(s => ({ qty: Math.min(10, s.qty + 1) })),
       dec: () => this.setState(s => ({ qty: Math.max(1, s.qty - 1) })),
       submitting: this.state.submitting,
