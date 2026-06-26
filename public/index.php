@@ -234,7 +234,7 @@
         <div style="font-size:46px;font-weight:800;color:#ffce3a;line-height:1;">{{ salePrice }}</div>
         <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:4px;">
           <span style="font-size:17px;color:#9fb6cf;text-decoration:line-through;">{{ originalPrice }}</span>
-          <span style="background:#f5601a;color:#fff;font-weight:700;font-size:13px;padding:3px 9px;border-radius:6px;width:max-content;">GIẢM ĐẾN 60%</span>
+          <span style="background:#f5601a;color:#fff;font-weight:700;font-size:13px;padding:3px 9px;border-radius:6px;width:max-content;">{{ discountLabel }}</span>
         </div>
       </div>
       <p style="font-size:13px;color:#9fb6cf;font-style:italic;margin:0 0 26px;line-height:1.5;">* Giá 199k bao gồm 2 áo, chưa bao gồm pin &amp; quạt phụ kiện.</p>
@@ -256,7 +256,7 @@
     <div style="position:relative;">
       <div style="position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 80px -30px rgba(0,0,0,.6);">
         <img src="assets/p-green-front.jpg" alt="Áo điều hòa Shakawa màu rêu" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-        <div style="position:absolute;top:18px;left:18px;background:#f5601a;color:#fff;font-weight:800;font-size:15px;padding:8px 14px;border-radius:10px;transform:rotate(-4deg);box-shadow:0 8px 18px -6px rgba(245,96,26,.6);">-50%</div>
+        <div style="position:absolute;top:18px;left:18px;background:#f5601a;color:#fff;font-weight:800;font-size:15px;padding:8px 14px;border-radius:10px;transform:rotate(-4deg);box-shadow:0 8px 18px -6px rgba(245,96,26,.6);">{{ discountBadge }}</div>
       </div>
 
       <!-- countdown card -->
@@ -358,7 +358,7 @@
 
 <!-- ===== Video review ===== -->
 <section style="background:#0e2547;color:#fff;">
-  <div class="videoGrid" style="max-width:1100px;margin:0 auto;padding:84px 24px;display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:center;">
+  <div class="videoGrid" style="max-width:1100px;margin:0 auto;padding:84px 24px;display:grid;grid-template-columns:1fr 500px;gap:48px;align-items:center;">
     <div>
       <div style="font-size:14px;font-weight:700;color:#1bb6e0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">Video thực tế</div>
       <h2 style="font-size:36px;font-weight:800;margin:0 0 18px;line-height:1.1;letter-spacing:-.02em;">Tận mắt xem Shakawa<br>làm mát thế nào</h2>
@@ -370,7 +370,7 @@
       </div>
       <a href="#order" style="display:inline-flex;align-items:center;gap:8px;margin-top:28px;background:#f5601a;color:#fff;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 20px -8px rgba(245,96,26,.6);">Đặt hàng ngay →</a>
     </div>
-    <div style="justify-self:center;width:100%;max-width:320px;aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 80px -30px rgba(0,0,0,.6);">
+    <div style="width:100%;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 80px -30px rgba(0,0,0,.6);">
       <iframe src="https://www.youtube.com/embed/PHC4moTpHPU?rel=0&playsinline=1" title="Video áo điều hòa Shakawa" style="width:100%;height:100%;border:0;display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy"></iframe>
     </div>
   </div>
@@ -455,7 +455,7 @@
         </div>
       </div>
 
-      <div style="margin-top:16px;display:inline-flex;align-items:center;gap:10px;background:rgba(245,96,26,.16);border:1px solid rgba(245,96,26,.4);padding:10px 16px;border-radius:10px;font-size:14px;color:#ffd9c4;font-weight:600;">⚡ Hết hạn sau {{ cdH }}:{{ cdM }}:{{ cdS }} — chỉ còn {{ stockLeft }} áo</div>
+      <div style="margin-top:16px;display:flex;align-items:center;gap:10px;background:rgba(245,96,26,.16);border:1px solid rgba(245,96,26,.4);padding:10px 16px;border-radius:10px;font-size:14px;color:#ffd9c4;font-weight:600;flex-wrap:wrap;">⚡ Hết hạn sau {{ cdH }}:{{ cdM }}:{{ cdS }} — chỉ còn {{ stockLeft }} áo</div>
 
       <!-- TikTok Order Button -->
       <div style="margin-top:16px;">
@@ -745,6 +745,10 @@ class Component extends DCLogic {
 
     // price math
     const saleNum = parseInt(String(salePrice).replace(/\D/g, '')) || 0;
+    const origNum = parseInt(String(originalPrice).replace(/\D/g, '')) || 0;
+    const discountPct = origNum > saleNum && origNum > 0 ? Math.round((1 - saleNum / origNum) * 100) : 0;
+    const discountLabel = discountPct > 0 ? `GIẢM ĐẾN ${discountPct}%` : '';
+    const discountBadge = discountPct > 0 ? `-${discountPct}%` : '';
     const total = saleNum * this.state.qty;
     const totalStr = total.toLocaleString('vi-VN') + '₫';
 
@@ -796,6 +800,7 @@ class Component extends DCLogic {
 
     return {
       originalPrice, salePrice, bogo, stockLeft,
+      discountLabel, discountBadge,
       cdH, cdM, cdS,
       year: new Date().getFullYear(),
 
