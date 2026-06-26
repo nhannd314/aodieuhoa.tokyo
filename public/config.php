@@ -20,7 +20,7 @@ return [
     'smtp_host' => 'smtp.gmail.com',
     'smtp_port' => 587,            // 587 = STARTTLS (khuyên dùng)
     'smtp_user' => 'nhannd314@gmail.com',   // địa chỉ Gmail đăng nhập SMTP
-    'smtp_pass' => 'xxxx xxxx xxxx xxxx',     // ⬅ DÁN APP PASSWORD 16 KÝ TỰ VÀO ĐÂY
+    'smtp_pass' => 'cdca cajt klab brjh',     // ⬅ DÁN APP PASSWORD 16 KÝ TỰ VÀO ĐÂY
 
     // ---- Người nhận đơn hàng ----
     'to_email'  => 'nhannd314@gmail.com',

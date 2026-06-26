@@ -29,10 +29,13 @@ Chỉ cần **upload toàn bộ các file trong thư mục này** vào thư mụ
    ```
    /public_html/
    ├── index.php          ← landing page (tự mở khi vào web)
+   ├── support.js         ← runtime hiển thị trang (BẮT BUỘC)
+   ├── assets/            ← thư mục ảnh sản phẩm (BẮT BUỘC)
    ├── submit-order.php   ← nhận & gửi đơn
    ├── SmtpMailer.php
    └── config.php
    ```
+   > Ảnh để dạng **file gốc** trong `assets/` (không nhúng base64) → trang nhẹ, tải nhanh, ảnh được cache. Nhớ upload cả `support.js` và cả thư mục `assets/`.
 Form trong `index.php` gửi tới `submit-order.php` cùng thư mục nên không cần chỉnh gì.
 
 ## 🧪 Bước 4 — Kiểm tra
