@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 <!-- Meta Pixel Code -->
 <script>
     !function(f,b,e,v,n,t,s)
