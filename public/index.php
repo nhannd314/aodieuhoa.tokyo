@@ -22,6 +22,83 @@
   @keyframes spin {from{transform:rotate(0);}to{transform:rotate(360deg);}}
   @keyframes floaty {0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
   @keyframes pulse {0%,100%{box-shadow:0 12px 30px -8px rgba(245,96,26,.55);}50%{box-shadow:0 12px 40px -6px rgba(245,96,26,.85);}}
+  @keyframes zalo-jump {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .zalo-float {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 99;
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: #0068ff;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,104,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: zalo-jump 2s infinite ease-in-out;
+    transition: all 0.3s ease;
+  }
+  .zalo-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,104,255,0.6);
+  }
+  .zalo-float img {
+    width: 38px;
+    height: 38px;
+  }
+  .fb-float {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    z-index: 99;
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: #0084ff;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,132,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: zalo-jump 2s infinite ease-in-out;
+    animation-delay: 0.5s;
+    transition: all 0.3s ease;
+  }
+  .fb-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,132,255,0.6);
+  }
+  .fb-float img {
+    width: 38px;
+    height: 38px;
+  }
+  @media (max-width: 760px) {
+    .zalo-float {
+      bottom: 100px;
+      right: 15px;
+      width: 50px;
+      height: 50px;
+    }
+    .zalo-float img {
+      width: 32px;
+      height: 32px;
+    }
+    .fb-float {
+      bottom: 160px;
+      right: 15px;
+      width: 50px;
+      height: 50px;
+    }
+    .fb-float img {
+      width: 32px;
+      height: 32px;
+    }
+  }
   @media (max-width:1080px){
     .headContact{display:none !important;}
     .headNav{gap:18px !important;font-size:14px !important;}
@@ -343,10 +420,21 @@
       </div>
 
       <div style="margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:rgba(245,96,26,.16);border:1px solid rgba(245,96,26,.4);padding:10px 16px;border-radius:10px;font-size:14px;color:#ffd9c4;font-weight:600;">⚡ Hết hạn sau {{ cdH }}:{{ cdM }}:{{ cdS }} — chỉ còn {{ stockLeft }} áo</div>
+
+      <!-- TikTok Order Button -->
+      <div style="margin-top:16px;">
+        <a href="https://www.tiktok.com/@aodieuhoashakawa" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#000;color:#fff;padding:12px 20px;border-radius:12px;font-weight:700;text-decoration:none;transition:all 0.3s ease;border:1px solid rgba(255,255,255,.14);" onMouseOver="this.style.background='#25d1da';this.style.color='#000'" onMouseOut="this.style.background='#000';this.style.color='#fff'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.89-.23-2.74.24-.73.42-1.22 1.11-1.39 1.93-.24.79-.14 1.67.28 2.37.52.92 1.54 1.54 2.59 1.56 1.46.07 2.84-.96 3.16-2.39.11-.47.11-.96.11-1.44V0h-.01z"/>
+          </svg>
+          Xem đánh giá sản phẩm trên Tiktok
+        </a>
+        <p style="margin:8px 0 0;font-size:13px;color:#9fb6cf;font-style:italic;">* Vui lòng xem đánh giá thực tế của khách hàng đã đặt mua trên Tiktok.</p>
+      </div>
     </div>
 
     <!-- form -->
-    <div style="background:#fff;color:#122033;border-radius:20px;padding:30px;box-shadow:0 40px 80px -30px rgba(0,0,0,.5);">
+    <div style="background:#fff;color:#122033;border-radius:20px;padding:30px;box-shadow:0 40px 80px -30px rgba(0,0,0,.5);position:relative;">
       <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
         <div style="text-align:center;padding:30px 10px;">
           <div style="width:72px;height:72px;border-radius:50%;background:#e6f7ee;color:#1ba35a;font-size:34px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">✓</div>
@@ -491,9 +579,26 @@
         <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:18px;font-weight:800;color:#f5601a;">{{ salePrice }}</span><span style="font-size:13px;color:#9aa7b6;text-decoration:line-through;">{{ originalPrice }}</span></div>
       </div>
     </div>
-    <a href="#order" style="background:#f5601a;color:#fff;font-weight:800;font-size:15px;padding:13px 28px;border-radius:999px;white-space:nowrap;">ĐẶT NGAY →</a>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="https://www.tiktok.com/@aodieuhoashakawa" target="_blank" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#000; color:#fff; flex-shrink:0;" title="TikTok">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.89-.23-2.74.24-.73.42-1.22 1.11-1.39 1.93-.24.79-.14 1.67.28 2.37.52.92 1.54 1.54 2.59 1.56 1.46.07 2.84-.96 3.16-2.39.11-.47.11-.96.11-1.44V0h-.01z"/>
+        </svg>
+      </a>
+      <a href="#order" style="background:#f5601a;color:#fff;font-weight:800;font-size:15px;padding:13px 28px;border-radius:999px;white-space:nowrap;">ĐẶT NGAY →</a>
+    </div>
   </div>
 </div>
+
+<!-- ===== Zalo Chat Button ===== -->
+<a href="https://zalo.me/0979198880" target="_blank" class="zalo-float" title="Chat qua Zalo">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo Chat">
+</a>
+
+<!-- ===== Facebook Chat Button ===== -->
+<a href="https://www.facebook.com/dienmayshakawa" target="_blank" class="fb-float" title="Chat qua Facebook">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Facebook Chat">
+</a>
 
 </div>
 </x-dc>
