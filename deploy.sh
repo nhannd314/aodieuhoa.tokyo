@@ -10,7 +10,7 @@ LOG_FILE="/var/www/aodieuhoa.tokyo/logs/deploy.log"
 echo "[$(date)] Deploy started" >> $LOG_FILE
 
 cd $APP_DIR
-git pull origin $BRANCH >> $LOG_FILE 2>&1
+git fetch origin $BRANCH >> $LOG_FILE 2>&1 && git reset --hard origin/$BRANCH
 
 # Laravel specific (bỏ nếu không dùng)
 #composer install --no-dev --optimize-autoloader >> $LOG_FILE 2>&1
